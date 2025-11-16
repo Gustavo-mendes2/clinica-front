@@ -5,25 +5,28 @@ import Pacientes from "./pages/pacientes/Pacientes";
 import Atendimentos from "./pages/atendimento/Atendimentos";
 import Pagamentos from "./pages/pagamentos/Pagamentos";
 import Funcionarios from "./pages/funcionarios/Funcionarios";
+import "./App.css";
 
 function App() {
   return (
     <Router>
-      <nav style={{ padding: "10px", background: "#eee" }}>
-        <Link to="/" style={{ marginRight: "10px" }}>
+      <nav>
+        <Link to="/" className="navItem">
           Home
         </Link>
-        <Link to="/Medicos" style={{ marginRight: "10px" }}>
+        <Link to="/Medicos" className="navItem">
           Medicos
         </Link>
-        <Link to="/Pacientes">Pacientes</Link>
-        <Link to="/Atendimentos" style={{ marginLeft: "10px" }}>
+        <Link to="/Pacientes" className="navItem">
+          Pacientes
+        </Link>
+        <Link to="/Atendimentos" className="navItem">
           Atendimentos
         </Link>
-        <Link to="/Pagamentos" style={{ marginLeft: "10px" }}>
+        <Link to="/Pagamentos" className="navItem">
           Pagamentos
         </Link>
-        <Link to="/Funcionarios" style={{ marginLeft: "10px" }}>
+        <Link to="/Funcionarios" className="navItem">
           Funcionarios
         </Link>
       </nav>

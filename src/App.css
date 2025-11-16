@@ -3,4 +3,17 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+nav {
+  padding: 10px;
+  border: solid black 2px;
+  height: 15%;
+  width: 100%;
+}
+
+.navItem {
+  margin-right: 15px;
 }
