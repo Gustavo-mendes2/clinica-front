@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import Medicos from "./pages/Medicos";
-import Pacientes from "./pages/Pacientes";
-import Atendimentos from "./pages/Atendimentos";
-import Pagamentos from "./pages/Pagamentos";
-import Funcionarios from "./pages/Funcionarios";
+import Home from "./pages/home/Home";
+import Medicos from "./pages/medicos/Medicos";
+import Pacientes from "./pages/pacientes/Pacientes";
+import Atendimentos from "./pages/atendimento/Atendimentos";
+import Pagamentos from "./pages/pagamentos/Pagamentos";
+import Funcionarios from "./pages/funcionarios/Funcionarios";
 
 function App() {
   return (
