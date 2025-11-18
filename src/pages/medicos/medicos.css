@@ -1,0 +1,40 @@
+.medicos-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 30px;
+text-align: center;
+}
+
+
+.medicos-busca {
+width: 300px;
+padding: 10px;
+margin: 20px 0;
+border-radius: 8px;
+border: 1px solid #065bfa;
+font-size: 1rem;
+}
+
+
+.medicos-lista {
+display: flex;
+flex-direction: column;
+gap: 20px;
+width: 100%;
+max-width: 500px;
+}
+
+
+.medico-card {
+padding: 20px;
+border-radius: 10px;
+background: #87b9f1;
+text-align: left;
+}
+
+
+.medico-card h2 {
+margin-bottom: 5px;
+}
