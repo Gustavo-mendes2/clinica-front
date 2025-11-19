@@ -12,8 +12,10 @@ nav {
   border: solid black 2px;
   height: 15%;
   width: 100%;
+  background-color: rgba(25, 115, 174, 1);
 }
 
 .navItem {
   margin-right: 15px;
 }
+/*MUDAR A FONTE DA LETRA DEPOIS!!!!!*/

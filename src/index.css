@@ -21,4 +21,6 @@ body {
   min-height: 100vh;
   justify-content: center;
   align-items: flex-start;
+  background-image: url(assets/fundo.png);
+  background-size: cover;
 }

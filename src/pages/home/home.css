@@ -1,4 +1,6 @@
 div {
   display: flex;
   justify-content: center;
+  /*background-image: url(../../assets/home.png);
+  background-size: cover;*/
 }
