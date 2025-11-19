@@ -1,0 +1,39 @@
+.pacientes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.pacientes-container h1 {
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 6px 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+}
+h1:hover {
+    color: #000000bb;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 6px 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+}
+.pacientes-busca {
+  text-align: center;
+
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.411);
+}
+input::placeholder {
+  color: #000000;
+  font-style: italic;
+  opacity: 1;
+  text-align: center;
+}
+.Bleca {
+    margin-top: -10px;
+}
