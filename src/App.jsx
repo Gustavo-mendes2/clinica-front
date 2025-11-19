@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Medicos from "./pages/medicos/Medicos";
 import Pacientes from "./pages/pacientes/Pacientes";
@@ -23,9 +23,6 @@ function App() {
         <Link to="/Atendimentos" className="navItem">
           Atendimentos
         </Link>
-        <Link to="/Pagamentos" className="navItem">
-          Pagamentos
-        </Link>
         <Link to="/Funcionarios" className="navItem">
           Funcionarios
         </Link>
@@ -36,7 +33,6 @@ function App() {
         <Route path="/Medicos" element={<Medicos />} />
         <Route path="/Pacientes" element={<Pacientes />} />
         <Route path="/Atendimentos" element={<Atendimentos />} />
-        <Route path="/Pagamentos" element={<Pagamentos />} />
         <Route path="/Funcionarios" element={<Funcionarios />} />
       </Routes>
     </Router>
