@@ -104,7 +104,7 @@ function Pacientes() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/pacientes")
+      .get("http://localhost:8080/api/pacientes")
       .then((res) => setPacientes(res.data))
       .catch((err) => console.log(err));
   }, []);
