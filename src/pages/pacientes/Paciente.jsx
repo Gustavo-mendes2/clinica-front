@@ -1,9 +1,12 @@
-import "pacientes.css";
+import "./pacientes.css";
 
-function Paciente({ paciente }) {
+function Paciente({ paciente, onClick }) {
   return (
     <div className="paciente-item">
-      <strong>{paciente.nome}</strong> — {paciente.cpf}
+      onClick = {() => onClick(paciente)}
+      <h3>{paciente.nome}</h3>
+      <p>Idade: {paciente.idade}</p>
+      <p>CPF: {paciente.cpf}</p>
     </div>
   );
 }
