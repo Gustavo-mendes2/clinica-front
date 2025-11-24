@@ -1,22 +1,38 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /*margin: 0 auto;*/
+  padding: 0rem;
+  text-align-last: center;
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: none;
+  height: 300px;
 }
 
 nav {
   padding: 10px;
-  border: solid black 2px;
+  /*border: solid black 2px;*/
   height: 15%;
   width: 100%;
   background-color: rgba(25, 115, 174, 1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-image: url(assets/logo.png);
+  background-repeat: no-repeat;
+  background-size: 145px;
+  background-position: 1% 35%;
+   display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;
 }
 
 .navItem {
   margin-right: 15px;
-  color: rgb(16, 36, 48);
+  /*color: rgb(16, 36, 48);*/
+  color: white;
+  font-size: 25px;
 }
 /*MUDAR A FONTE DA LETRA DEPOIS!!!!!*/
+
+.navItem:hover{
+  text-shadow: 0 5px 9px rgb(245, 245, 220, 0.9);
+}

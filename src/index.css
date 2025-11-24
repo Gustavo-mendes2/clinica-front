@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgb(0, 0, 0);
-  background-color: #606ac4;
+  /*background-color: #606ac4;*/
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,6 +21,8 @@ body {
   min-height: 100vh;
   justify-content: center;
   align-items: flex-start;
-  background-image: url(assets/fundo.png);
+  
   background-size: cover;
+  background-image: linear-gradient(to bottom, rgba(72, 142, 188, 0.9), rgba(132, 177, 207, 0.7), rgb(255, 255, 255,0.5)),
+  url(assets/homepage.jpg);
 }
