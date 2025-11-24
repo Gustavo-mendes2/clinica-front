@@ -7,33 +7,43 @@
   text-align: center;
 }
 
-.pacientes-container h1 {
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 6px 2px 5px rgba(0, 0, 0, 0.2);
-    opacity: 0.8;
+h1 {
+  font-weight: 600;
 }
-h1:hover {
-    color: #000000bb;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 6px 2px 5px rgba(0, 0, 0, 0.2);
-    opacity: 0.8;
-}
-.pacientes-busca {
+.paciente-busca {
   text-align: center;
-
-  color: rgb(0, 0, 0);
+  width: 300px;
+  color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.411);
 }
-input::placeholder {
-  color: #000000;
-  font-style: italic;
-  opacity: 1;
-  text-align: center;
+
+.paciente-item {
+  background: #f8f8f8;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  border-left: 4px solid #4caf50;
+  font-size: 16px;
 }
-.Bleca {
-    margin-top: -10px;
+
+.paciente-card {
+  background: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 2px solid transparent;
+}
+
+.paciente-card:hover {
+  transform: scale(1.02);
+  background: #f4f4f4;
+}
+
+.paciente-card.selecionado {
+  border-color: #0077ff;
+  background: #e8f1ff;
 }
