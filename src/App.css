@@ -1,12 +1,12 @@
 #root {
-  /*margin: 0 auto;*/
+  margin: 0 auto;
   padding: 0rem;
   text-align-last: center;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   max-width: none;
-  height: 300px;
+  justify-content: center;
 }
 
 nav {
@@ -20,19 +20,19 @@ nav {
   background-repeat: no-repeat;
   background-size: 145px;
   background-position: 1% 35%;
-   display: flex;
+  display: flex;
   justify-content: center; /* horizontal */
   align-items: center;
 }
 
 .navItem {
-  margin-right: 15px;
+  margin-right: 25px;
   /*color: rgb(16, 36, 48);*/
   color: white;
   font-size: 25px;
 }
 /*MUDAR A FONTE DA LETRA DEPOIS!!!!!*/
 
-.navItem:hover{
+.navItem:hover {
   text-shadow: 0 5px 9px rgb(245, 245, 220, 0.9);
 }

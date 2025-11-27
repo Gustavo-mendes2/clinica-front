@@ -16,7 +16,7 @@
   padding: 0rem;
   text-align-last: center;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   width: 100%;
   max-width: none;
   justify-content: center;
@@ -24,6 +24,8 @@
 
 body {
   margin: 0;
+  padding: 0;
+  width: 100%;
   display: flex;
   place-items: center;
   min-width: 100vh;

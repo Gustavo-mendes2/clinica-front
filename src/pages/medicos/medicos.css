@@ -1,44 +1,45 @@
 .medicos-container {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 30px;
-text-align: center;
-background-image: linear-gradient(to bottom, rgba(72, 142, 188, 0.9), rgba(132, 177, 207, 0.7), rgb(255, 255, 255,0.5)),
-url("../../assets/medicos.jpg");
-background-size: cover;
-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(72, 142, 188, 0.9),
+      rgba(132, 177, 207, 0.7),
+      rgb(255, 255, 255, 0.5)
+    ),
+    url("../../assets/medicos.jpg");
+  background-size: cover;
+  width: 100%;
 }
-
 
 .medicos-busca {
-width: 300px;
-padding: 10px;
-margin: 20px 0;
-border-radius: 8px;
-border: 1px solid #065bfa;
-font-size: 1rem;
+  width: 300px;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 8px;
+  border: 1px solid #065bfa;
+  font-size: 1rem;
 }
-
 
 .medicos-lista {
-display: flex;
-flex-direction: column;
-gap: 20px;
-width: 100%;
-max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
 }
-
 
 .medico-card {
-padding: 20px;
-border-radius: 10px;
-background: #87b9f1;
-text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+  background: #87b9f1;
+  text-align: left;
 }
 
-
 .medico-card h2 {
-margin-bottom: 5px;
+  margin-bottom: 5px;
 }
