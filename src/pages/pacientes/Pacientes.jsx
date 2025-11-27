@@ -24,7 +24,7 @@ function Pacientes() {
 }
 
   return (
-    <div>
+    
       <div className="pacientes-container">
         <h1>Pacientes</h1>
         <p>Pacientes no sistema</p>
@@ -45,7 +45,6 @@ function Pacientes() {
           />
         ))}
       </div>
-    </div>
   );
 }
 

@@ -12,7 +12,7 @@
 nav {
   padding: 10px;
   /*border: solid black 2px;*/
-  height: 15%;
+  height: 10%;
   width: 100%;
   background-color: rgba(25, 115, 174, 1);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -23,6 +23,8 @@ nav {
   display: flex;
   justify-content: center; /* horizontal */
   align-items: center;
+  z-index: 2;
+  position: fixed;
 }
 
 .navItem {
@@ -30,9 +32,11 @@ nav {
   /*color: rgb(16, 36, 48);*/
   color: white;
   font-size: 25px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 /*MUDAR A FONTE DA LETRA DEPOIS!!!!!*/
 
 .navItem:hover {
+  transform: translateY(-5px);
   text-shadow: 0 5px 9px rgb(245, 245, 220, 0.9);
 }
