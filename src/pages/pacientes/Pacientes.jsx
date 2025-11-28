@@ -1,50 +1,71 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import "./pacientes.css";
-import Paciente from "./Paciente";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Pacientes() {
-  const [pacientes, setPacientes] = useState([]);
   const [busca, setBusca] = useState("");
-  const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
+  const [pacientes, setPacientes] = useState([]);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/pacientes")
-      .then((res) => setPacientes(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-  const pacientesFiltrados = pacientes.filter((p) =>
-    p.nome.toLowerCase().includes(busca.toLowerCase())
+  axios
+    .get("http://localhost:8080/api/pacientes")
+    .then((res) => {
+      // remove duplicados pelo ID
+      const unicos = Array.from(
+        new Map(res.data.map(p => [p.id, p])).values()
+      );
+      setPacientes(unicos);
+      setCarregando(false);
+    })
+    .catch((err) => {
+      console.error("Erro ao carregar pacientes:", err);
+      setCarregando(false);
+    });
+}, []);
+
+
+  const filtrados = pacientes.filter(
+    (p) =>
+      p.nome.toLowerCase().includes(busca.toLowerCase()) ||
+      p.cpf?.toLowerCase().includes(busca.toLowerCase()) ||
+      p.email?.toLowerCase().includes(busca.toLowerCase()) ||
+      p.telefone?.toLowerCase().includes(busca.toLowerCase())
   );
 
-  function handleClickPaciente(p) {
-  setPacienteSelecionado(p);
-  console.log("Paciente selecionado:", p);
-}
-
   return (
-    
-      <div className="pacientes-container">
-        <h1>Pacientes</h1>
-        <p>Pacientes no sistema</p>
+    <div className="pacientes-container">
+      <h1>Pacientes</h1>
+      <p>Lista de pacientes cadastrados no sistema.</p>
 
-        <input
+      <input
         type="text"
-        placeholder=":Buscar paciente por nome:"
-        className="paciente-busca"
+        placeholder="Buscar por nome, CPF, email ou telefone..."
+        className="pacientes-busca"
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
-        />
+      />
 
-        {pacientesFiltrados.map((p) => (
-          <Paciente 
-            key={p.id} 
-            paciente={p}
-            onClick={handleClickPaciente}
-          />
-        ))}
-      </div>
+      {carregando ? (
+        <p>Carregando pacientes...</p>
+      ) : (
+        <div className="pacientes-lista">
+          {filtrados.length === 0 ? (
+            <p>Nenhum paciente encontrado.</p>
+          ) : (
+            filtrados.map((p) => (
+              <div key={p.id} className="paciente-card">
+                <h2>{p.nome}</h2>
+
+                <p><strong>CPF:</strong> {p.cpf || "Não informado"}</p>
+                <p><strong>Email:</strong> {p.email || "Não informado"}</p>
+                <p><strong>Telefone:</strong> {p.telefone || "Não informado"}</p>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
