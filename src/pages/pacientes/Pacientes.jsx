@@ -7,6 +7,8 @@ function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
+
+
   useEffect(() => {
   axios
     .get("http://localhost:8080/api/pacientes")
@@ -32,6 +34,16 @@ function Pacientes() {
       p.email?.toLowerCase().includes(busca.toLowerCase()) ||
       p.telefone?.toLowerCase().includes(busca.toLowerCase())
   );
+
+  async function deletarPaciente(id) {
+    try {
+      await axios.delete(`http://localhost:8080/api/pacientes/${id}`);
+      setPacientes((prev) => prev.filter((p) => p.id !== id));
+      setPacienteSelecionado(null);
+    } catch (err) {
+      console.error("Erro ao deletar paciente:", err);
+    }
+  } //Função de deletar paciente -- Dps adicionar as outras páginas
 
   return (
     <div className="pacientes-container">
@@ -60,6 +72,9 @@ function Pacientes() {
                 <p><strong>CPF:</strong> {p.cpf || "Não informado"}</p>
                 <p><strong>Email:</strong> {p.email || "Não informado"}</p>
                 <p><strong>Telefone:</strong> {p.telefone || "Não informado"}</p>
+                <button className="button-delete-paciente"
+                onClick={() => deletarPaciente(p.id)}
+                >Deletar</button>
               </div>
             ))
           )}
@@ -67,6 +82,5 @@ function Pacientes() {
       )}
     </div>
   );
-}
-
+};
 export default Pacientes;
