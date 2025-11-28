@@ -1,11 +1,12 @@
-.pacientes-container {
+/*.pacientes-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 30px;
   text-align: center;
-  /*background-image: linear-gradient(to bottom,
+  
+  background-image: linear-gradient(to bottom,
    rgba(72, 142, 188, 0.9), 
    rgba(132, 177, 207, 0.7), 
    rgb(255, 255, 255,0.5)),
@@ -15,7 +16,7 @@ background-position: center;
 width: 100%;
 max-height: 600px;
 overflow-y: auto;
-padding-right: 10px;*/
+padding-right: 10px;
 gap: 20px;
 }
 
@@ -71,4 +72,87 @@ gap: 20px;
 .paciente-card.selecionado {
   border-color: #0077ff;
   background: #e8f1ff;
+}*/
+
+/* Container principal */
+.pacientes-container {
+  max-width: 900px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.pacientes-container h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 700;
+  font-size: 50px;
+}
+
+/* Descrição */
+.pacientes-container p {
+  color: #555;
+  margin-bottom: 20px;
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight: 600;
+}
+
+/* Campo de busca */
+.pacientes-busca {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.pacientes-busca:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Lista */
+.pacientes-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.paciente-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.paciente-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Nome */
+.paciente-card h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+/* Informações */
+.paciente-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.paciente-card strong {
+  color: #34495e;
 }

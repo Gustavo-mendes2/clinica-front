@@ -1,4 +1,4 @@
-import "./pacientes.css";
+/*import "./pacientes.css";
 
 function Paciente({ paciente, onClick }) {
   return (
@@ -11,4 +11,77 @@ function Paciente({ paciente, onClick }) {
   );
 }
 
-export default Paciente;
+export default Paciente;*/
+
+import "./pacientes.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+function Pacientes() {
+  const [busca, setBusca] = useState("");
+  const [pacientes, setPacientes] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+  axios
+    .get("http://localhost:8080/api/pacientes")
+    .then((res) => {
+      // remove duplicados pelo ID
+      const unicos = Array.from(
+        new Map(res.data.map(p => [p.id, p])).values()
+      );
+      setPacientes(unicos);
+      setCarregando(false);
+    })
+    .catch((err) => {
+      console.error("Erro ao carregar pacientes:", err);
+      setCarregando(false);
+    });
+}, []);
+
+
+  const filtrados = pacientes.filter(
+    (p) =>
+      p.nome.toLowerCase().includes(busca.toLowerCase()) ||
+      p.cpf?.toLowerCase().includes(busca.toLowerCase()) ||
+      p.email?.toLowerCase().includes(busca.toLowerCase()) ||
+      p.telefone?.toLowerCase().includes(busca.toLowerCase())
+  );
+
+  return (
+    <div className="pacientes-container">
+      <h1>Pacientes</h1>
+      <p>Lista de pacientes cadastrados no sistema.</p>
+
+      <input
+        type="text"
+        placeholder="Buscar por nome, CPF, email ou telefone..."
+        className="pacientes-busca"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+      />
+
+      {carregando ? (
+        <p>Carregando pacientes...</p>
+      ) : (
+        <div className="pacientes-lista">
+          {filtrados.length === 0 ? (
+            <p>Nenhum paciente encontrado.</p>
+          ) : (
+            filtrados.map((p) => (
+              <div key={p.id} className="paciente-card">
+                <h2>{p.nome}</h2>
+
+                <p><strong>CPF:</strong> {p.cpf || "Não informado"}</p>
+                <p><strong>Email:</strong> {p.email || "Não informado"}</p>
+                <p><strong>Telefone:</strong> {p.telefone || "Não informado"}</p>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Pacientes;
