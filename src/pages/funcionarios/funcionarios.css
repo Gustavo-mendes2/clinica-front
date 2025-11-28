@@ -1,7 +1,7 @@
 /* Container principal */
 .funcionarios-container {
   max-width: 900px;
-  margin: 20px auto;
+  margin: 100px auto;
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #fdfdfd;
@@ -13,11 +13,20 @@
 .funcionarios-container h1 {
   color: #2c3e50;
   margin-bottom: 10px;
+  font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 50px;
 }
 
 .funcionarios-container p {
   color: #555;
   margin-bottom: 20px;
+    font-family: "Merriweather Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 /* Input de busca */

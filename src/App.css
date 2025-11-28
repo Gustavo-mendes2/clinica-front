@@ -40,3 +40,68 @@ nav {
   transform: translateY(-5px);
   text-shadow: 0 5px 9px rgb(245, 245, 220, 0.9);
 }
+
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  transition: background 0.4s ease;
+}
+
+/* HOME */
+.page-container.home {
+  background: linear-gradient(
+      to bottom,
+      rgba(72, 142, 188, 0.9),
+      rgba(132, 177, 207, 0.7),
+      rgb(255, 255, 255, 0.5)
+    ) ,url("assets/homepage.jpg") no-repeat center/cover;
+}
+
+/* MEDICOS */
+.page-container.medicos {
+  background: linear-gradient(
+      to bottom,
+      rgba(72, 142, 188, 0.9),
+      rgba(132, 177, 207, 0.7),
+      rgb(255, 255, 255, 0.5)
+    ) ,url("assets/medicos.jpg") no-repeat center/cover;
+}
+
+/* PACIENTES */
+.page-container.pacientes {
+  background: linear-gradient(
+      to bottom,
+      rgba(72, 142, 188, 0.9),
+      rgba(132, 177, 207, 0.7),
+      rgb(255, 255, 255, 0.5)
+    ) ,url("assets/pacientes.jpg") no-repeat center/cover;
+}
+
+/* ATENDIMENTOS */
+.page-container.atendimentos {
+  background: linear-gradient(
+      to bottom,
+      rgba(72, 142, 188, 0.9),
+      rgba(132, 177, 207, 0.7),
+      rgb(255, 255, 255, 0.5)
+    ) ;
+}
+
+/* FUNCIONARIOS */
+.page-container.funcionarios {
+  background: linear-gradient(
+      to bottom,
+      rgba(72, 142, 188, 0.9),
+      rgba(132, 177, 207, 0.7),
+      rgb(255, 255, 255, 0.5)
+    ) ;
+}
+
+.page-container {
+  opacity: 0;
+  animation: fade 0.4s forwards ease;
+}
+
+@keyframes fade {
+  to { opacity: 1; }
+}

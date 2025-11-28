@@ -33,7 +33,7 @@ body {
   justify-content: center;
   align-items: flex-start;
 
-  background-size: cover;
+  /*background-size: cover;
   background-image: linear-gradient(
       to bottom,
       rgba(72, 142, 188, 0.9),
@@ -41,4 +41,5 @@ body {
       rgb(255, 255, 255, 0.5)
     ),
     url(assets/homepage.jpg);
+    background-position: center fixed;*/
 }
