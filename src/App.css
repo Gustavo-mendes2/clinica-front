@@ -84,7 +84,7 @@ nav {
       rgba(72, 142, 188, 0.9),
       rgba(132, 177, 207, 0.7),
       rgb(255, 255, 255, 0.5)
-    ) ;
+    ), url("assets/atendimento.jpg") no-repeat center/cover ;
 }
 
 /* FUNCIONARIOS */
@@ -94,7 +94,7 @@ nav {
       rgba(72, 142, 188, 0.9),
       rgba(132, 177, 207, 0.7),
       rgb(255, 255, 255, 0.5)
-    ) ;
+    ), url("assets/funcionarios.jpg") no-repeat center/cover ;
 }
 
 .page-container {
