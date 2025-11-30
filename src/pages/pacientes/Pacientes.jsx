@@ -7,24 +7,43 @@ function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
+  const [mostrarModal, setMostrarModal] = useState(false);
+  
+  const [medicos, setMedicos] = useState([]);
+  const [novoPaciente, setNovoPaciente] = useState({
+  nome: "",
+  cpf: "",
+  email: "",
+  telefone: "",
+  endereco: "",
+  dataNascimento: "",
+  sexo: "",
+  medico: { id: null }
+});
 
 
   useEffect(() => {
-  axios
-    .get("http://localhost:8080/api/pacientes")
-    .then((res) => {
-      // remove duplicados pelo ID
-      const unicos = Array.from(
-        new Map(res.data.map(p => [p.id, p])).values()
+  setCarregando(true);
+
+  Promise.all([
+    axios.get("http://localhost:8080/api/pacientes"),
+    axios.get("http://localhost:8080/api/medicos")
+  ])
+    .then(([resPacientes, resMedicos]) => {
+      // remover duplicados de pacientes pelo ID
+      const pacientesUnicos = Array.from(
+        new Map(resPacientes.data.map(p => [p.id, p])).values()
       );
-      setPacientes(unicos);
+
+      setPacientes(pacientesUnicos);
+      setMedicos(resMedicos.data);
       setCarregando(false);
     })
     .catch((err) => {
-      console.error("Erro ao carregar pacientes:", err);
+      console.error("Erro ao carregar dados:", err);
       setCarregando(false);
     });
-}, []);
+    }, []);
 
 
   const filtrados = pacientes.filter(
@@ -39,11 +58,30 @@ function Pacientes() {
     try {
       await axios.delete(`http://localhost:8080/api/pacientes/${id}`);
       setPacientes((prev) => prev.filter((p) => p.id !== id));
-      setPacienteSelecionado(null);
     } catch (err) {
       console.error("Erro ao deletar paciente:", err);
     }
-  } //Função de deletar paciente -- Dps adicionar as outras páginas
+  } //Função de deletar paciente -- Dps adicionar as outras páginas!
+
+  async function criarPaciente(e) {
+    e.preventDefault();
+
+    console.log("Enviando JSON:", novoPaciente);
+
+    try {
+      const res = await axios.post("http://localhost:8080/api/pacientes", novoPaciente);
+
+      // adiciona no estado
+      setPacientes((prev) => [...prev, res.data]);
+
+      // limpa form
+      setNovoPaciente({ nome: "", cpf: "", email: "", telefone: "" });
+
+      setMostrarModal(false);
+    } catch (err) {
+      console.error("Erro ao criar paciente:", err);
+    }
+  } //Função de criar paciente -- Dps adicionar as outras páginas!
 
   return (
     <div className="pacientes-container">
@@ -57,6 +95,10 @@ function Pacientes() {
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
       />
+
+      <button className="button-add" onClick={() => setMostrarModal(true)}>
+        + Adicionar Paciente
+      </button>
 
       {carregando ? (
         <p>Carregando pacientes...</p>
@@ -80,7 +122,100 @@ function Pacientes() {
           )}
         </div>
       )}
+      {mostrarModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Novo Paciente</h2>
+
+            <form onSubmit={criarPaciente}>
+              <input
+                type="text"
+                placeholder="Nome"
+                value={novoPaciente.nome}
+                onChange={(e) => setNovoPaciente({ ...novoPaciente, nome: e.target.value })}
+                required
+              />
+
+              <input
+                type="text"
+                placeholder="CPF"
+                value={novoPaciente.cpf}
+                onChange={(e) => setNovoPaciente({ ...novoPaciente, cpf: e.target.value })}
+              />
+
+              <input
+                type="email"
+                placeholder="E-mail"
+                value={novoPaciente.email}
+                onChange={(e) => setNovoPaciente({ ...novoPaciente, email: e.target.value })}
+              />
+
+              <input
+                type="text"
+                placeholder="Telefone"
+                value={novoPaciente.telefone}
+                onChange={(e) => setNovoPaciente({ ...novoPaciente, telefone: e.target.value })}
+              />
+
+              <button type="submit" className="button-add">
+                Salvar
+              </button>
+
+              <button
+                type="button"
+                className="button-cancel"
+                onClick={() => setMostrarModal(false)}
+              >
+                Cancelar
+              </button>
+              <input
+              type="text"
+              placeholder="Endereço"
+              value={novoPaciente.endereco}
+              onChange={(e) => setNovoPaciente({ ...novoPaciente, endereco: e.target.value })}
+            />
+
+            <input
+              type="date"
+              placeholder="Data de Nascimento"
+              value={novoPaciente.dataNascimento}
+              onChange={(e) => setNovoPaciente({ ...novoPaciente, dataNascimento: e.target.value })}
+            />
+
+            <select
+              value={novoPaciente.sexo}
+              onChange={(e) => setNovoPaciente({ ...novoPaciente, sexo: e.target.value })}
+              required
+            >
+              <option value="Selecionar">Selecionar</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Outro">Outro</option>
+            </select>
+
+
+            <select
+              value={novoPaciente.medico.id || ""}
+              onChange={(e) =>
+                setNovoPaciente({
+                  ...novoPaciente,
+                  medico: { id: Number(e.target.value) }
+                })
+              }
+            >
+              <option value="">Selecione um médico</option>
+            
+              {medicos.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.nome}
+                </option>
+              ))}
+            </select>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
+}
 export default Pacientes;
