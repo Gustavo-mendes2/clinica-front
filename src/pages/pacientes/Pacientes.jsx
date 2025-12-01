@@ -123,98 +123,106 @@ function Pacientes() {
         </div>
       )}
       {mostrarModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Novo Paciente</h2>
+  <div className="modal-overlay">
+    <div className="modal">
+      <h2>Novo Paciente</h2>
 
-            <form onSubmit={criarPaciente}>
-              <input
-                type="text"
-                placeholder="Nome"
-                value={novoPaciente.nome}
-                onChange={(e) => setNovoPaciente({ ...novoPaciente, nome: e.target.value })}
-                required
-              />
+      <form onSubmit={criarPaciente} className="form-paciente">
 
-              <input
-                type="text"
-                placeholder="CPF"
-                value={novoPaciente.cpf}
-                onChange={(e) => setNovoPaciente({ ...novoPaciente, cpf: e.target.value })}
-              />
+        <div className="form-row">
+          <input
+            type="text"
+            placeholder="Nome"
+            className="input-nome"
+            value={novoPaciente.nome}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, nome: e.target.value })}
+            required
+          />
 
-              <input
-                type="email"
-                placeholder="E-mail"
-                value={novoPaciente.email}
-                onChange={(e) => setNovoPaciente({ ...novoPaciente, email: e.target.value })}
-              />
+          <input
+            type="text"
+            placeholder="CPF"
+            className="input-cpf"
+            value={novoPaciente.cpf}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, cpf: e.target.value })}
+          />
 
-              <input
-                type="text"
-                placeholder="Telefone"
-                value={novoPaciente.telefone}
-                onChange={(e) => setNovoPaciente({ ...novoPaciente, telefone: e.target.value })}
-              />
+          <input
+            type="email"
+            placeholder="E-mail"
+            className="input-email"
+            value={novoPaciente.email}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, email: e.target.value })}
+          />
 
-              <button type="submit" className="button-add">
-                Salvar
-              </button>
-
-              <button
-                type="button"
-                className="button-cancel"
-                onClick={() => setMostrarModal(false)}
-              >
-                Cancelar
-              </button>
-              <input
-              type="text"
-              placeholder="Endereço"
-              value={novoPaciente.endereco}
-              onChange={(e) => setNovoPaciente({ ...novoPaciente, endereco: e.target.value })}
-            />
-
-            <input
-              type="date"
-              placeholder="Data de Nascimento"
-              value={novoPaciente.dataNascimento}
-              onChange={(e) => setNovoPaciente({ ...novoPaciente, dataNascimento: e.target.value })}
-            />
-
-            <select
-              value={novoPaciente.sexo}
-              onChange={(e) => setNovoPaciente({ ...novoPaciente, sexo: e.target.value })}
-              required
-            >
-              <option value="Selecionar">Selecionar</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-              <option value="Outro">Outro</option>
-            </select>
-
-
-            <select
-              value={novoPaciente.medico.id || ""}
-              onChange={(e) =>
-                setNovoPaciente({
-                  ...novoPaciente,
-                  medico: { id: Number(e.target.value) }
-                })
-              }
-            >
-              <option value="">Selecione um médico</option>
-            
-              {medicos.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.nome}
-                </option>
-              ))}
-            </select>
-            </form>
-          </div>
+          <input
+            type="text"
+            placeholder="Telefone"
+            className="input-telefone"
+            value={novoPaciente.telefone}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, telefone: e.target.value })}
+          />
         </div>
-      )}
+
+        <div className="form-row">
+          <input
+            type="text"
+            placeholder="Endereço"
+            className="input-endereco"
+            value={novoPaciente.endereco}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, endereco: e.target.value })}
+          />
+
+          <input
+            type="date"
+            className="input-data"
+            value={novoPaciente.dataNascimento}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, dataNascimento: e.target.value })}
+          />
+
+          <select
+            className="input-sexo"
+            value={novoPaciente.sexo}
+            onChange={(e) => setNovoPaciente({ ...novoPaciente, sexo: e.target.value })}
+          >
+            <option value="">Selecionar</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outro">Outro</option>
+          </select>
+
+          <select
+            className="input-medico"
+            value={novoPaciente.medico.id || ""}
+            onChange={(e) =>
+              setNovoPaciente({
+                ...novoPaciente,
+                medico: { id: Number(e.target.value) }
+              })
+            }
+          >
+            <option value="">Selecione um médico</option>
+            {medicos.map((m) => (
+              <option key={m.id} value={m.id}>{m.nome}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="buttons">
+          <button type="button" className="btn-cancelar" onClick={() => setMostrarModal(false)}>
+            Cancelar
+          </button>
+
+          <button type="submit" className="btn-salvar">
+            Salvar
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
