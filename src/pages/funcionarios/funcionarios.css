@@ -3,33 +3,29 @@
   max-width: 900px;
   margin: 100px auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
   background-color: #fdfdfd;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Título e descrição */
+/* Título */
 .funcionarios-container h1 {
   color: #2c3e50;
   margin-bottom: 10px;
   font-family: "Inter Tight", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 700;
-  font-style: normal;
   font-size: 50px;
 }
 
+/* Descrição */
 .funcionarios-container p {
   color: #555;
   margin-bottom: 20px;
-    font-family: "Merriweather Sans", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Merriweather Sans", sans-serif;
   font-weight: 600;
-  font-style: normal;
 }
 
-/* Input de busca */
+/* Campo de busca */
 .funcionarios-busca {
   width: 100%;
   padding: 10px 15px;
@@ -45,14 +41,14 @@
   outline: none;
 }
 
-/* Lista de cards */
+/* Lista */
 .funcionarios-lista {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
-/* Card individual */
+/* Card */
 .funcionario-card {
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -67,14 +63,14 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Títulos dentro do card */
+/* Nome */
 .funcionario-card h2 {
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 10px;
   color: #2c3e50;
 }
 
-/* Texto dentro do card */
+/* Informações */
 .funcionario-card p {
   margin: 5px 0;
   font-size: 14px;
@@ -83,4 +79,144 @@
 
 .funcionario-card strong {
   color: #34495e;
+}
+
+/* Botão deletar */
+.button-delete-funcionario {
+  background-color: #afdaf7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+}
+
+.button-delete-funcionario:hover {
+  background-color: cornflowerblue;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Botão adicionar */
+.button-add {
+  background-color: #afdaf7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 10px;
+}
+
+.button-add:hover {
+  background-color: cornflowerblue;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* --- OVERLAY DO MODAL --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- CAIXA DO MODAL --- */
+.modal {
+  background: #fff;
+  width: 900px;
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  color: #2c3e50;
+}
+
+.modal h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* --- FORMULÁRIO --- */
+.form-funcionario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Grelha responsiva */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+/* Inputs padrão */
+.form-row input,
+.form-row select {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.2s;
+  background: #fafafa;
+  color: #2c3e50;
+}
+
+/* Foco */
+.form-row input:focus,
+.form-row select:focus {
+  border-color: #afdaf7;
+  box-shadow: 0 0 5px cornflowerblue;
+  outline: none;
+}
+
+/* Botões */
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Botão cancelar */
+.btn-cancelar {
+  background: #ccc;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancelar:hover {
+  background: #b1b1b1;
+}
+
+/* Botão salvar */
+.btn-salvar {
+  background: #4CAF50;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-salvar:hover {
+  background: #43a047;
 }

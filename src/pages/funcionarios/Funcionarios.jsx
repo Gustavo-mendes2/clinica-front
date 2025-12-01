@@ -7,11 +7,27 @@ function Funcionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+  // novo funcionário
+  const [novoFuncionario, setNovoFuncionario] = useState({
+    nome: "",
+    cpf: "",
+    cargo: "",
+    telefone: ""
+  });
+
   useEffect(() => {
+    setCarregando(true);
+
     axios
       .get("http://localhost:8080/api/funcionarios")
       .then((res) => {
-        setFuncionarios(res.data);
+        // remove duplicados se o backend estiver repetindo
+        const unicos = Array.from(
+          new Map(res.data.map(f => [f.id, f])).values()
+        );
+        setFuncionarios(unicos);
         setCarregando(false);
       })
       .catch((err) => {
@@ -20,12 +36,42 @@ function Funcionarios() {
       });
   }, []);
 
+  // filtro
   const filtrados = funcionarios.filter(
     (f) =>
       f.nome.toLowerCase().includes(busca.toLowerCase()) ||
       f.cargo.toLowerCase().includes(busca.toLowerCase()) ||
       String(f.cpf).includes(busca)
   );
+
+  // deletar
+  async function deletarFuncionario(id) {
+    try {
+      await axios.delete(`http://localhost:8080/api/funcionarios/${id}`);
+      setFuncionarios((prev) => prev.filter((f) => f.id !== id));
+    } catch (err) {
+      console.error("Erro ao deletar funcionário:", err);
+    }
+  }
+
+  // criar
+  async function criarFuncionario(e) {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/funcionarios",
+        novoFuncionario
+      );
+
+      setFuncionarios((prev) => [...prev, res.data]);
+
+      setNovoFuncionario({ nome: "", cpf: "", cargo: "", telefone: "" });
+      setMostrarModal(false);
+    } catch (err) {
+      console.error("Erro ao criar funcionário:", err);
+    }
+  }
 
   return (
     <div className="funcionarios-container">
@@ -39,6 +85,10 @@ function Funcionarios() {
         value={busca}
         onChange={(e) => setBusca(e.target.value)}
       />
+
+      <button className="button-add" onClick={() => setMostrarModal(true)}>
+        + Adicionar Funcionário
+      </button>
 
       {carregando ? (
         <p>Carregando funcionários...</p>
@@ -59,9 +109,92 @@ function Funcionarios() {
                 <p>
                   <strong>Telefone:</strong> {f.telefone}
                 </p>
+
+                <button
+                  className="button-delete-funcionario"
+                  onClick={() => deletarFuncionario(f.id)}
+                >
+                  Deletar
+                </button>
               </div>
             ))
           )}
+        </div>
+      )}
+
+      {/* MODAL */}
+      {mostrarModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Novo Funcionário</h2>
+
+            <form onSubmit={criarFuncionario} className="form-funcionario">
+              <div className="form-row">
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  value={novoFuncionario.nome}
+                  onChange={(e) =>
+                    setNovoFuncionario({
+                      ...novoFuncionario,
+                      nome: e.target.value,
+                    })
+                  }
+                  required
+                />
+
+                <input
+                  type="text"
+                  placeholder="CPF"
+                  value={novoFuncionario.cpf}
+                  onChange={(e) =>
+                    setNovoFuncionario({
+                      ...novoFuncionario,
+                      cpf: e.target.value,
+                    })
+                  }
+                />
+
+                <input
+                  type="text"
+                  placeholder="Cargo"
+                  value={novoFuncionario.cargo}
+                  onChange={(e) =>
+                    setNovoFuncionario({
+                      ...novoFuncionario,
+                      cargo: e.target.value,
+                    })
+                  }
+                />
+
+                <input
+                  type="text"
+                  placeholder="Telefone"
+                  value={novoFuncionario.telefone}
+                  onChange={(e) =>
+                    setNovoFuncionario({
+                      ...novoFuncionario,
+                      telefone: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="btn-cancelar"
+                  onClick={() => setMostrarModal(false)}
+                >
+                  Cancelar
+                </button>
+
+                <button type="submit" className="btn-salvar">
+                  Salvar
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

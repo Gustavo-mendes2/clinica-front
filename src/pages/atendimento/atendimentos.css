@@ -6,31 +6,26 @@
   background-color: #fdfdfd;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
- 
 }
 
-/* Título e descrição */
+/* Título */
 .atendimentos-container h1 {
   color: #2c3e50;
   margin-bottom: 10px;
-  margin-top: 10px;
   font-family: "Inter Tight", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 700;
-  font-style: normal;
   font-size: 50px;
 }
 
-.atendimentos-container p {
+/* Descrição */
+.atendimentos-container > p {
   color: #555;
   margin-bottom: 20px;
   font-family: "Merriweather Sans", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 600;
-  font-style: normal;
 }
 
-/* Input de busca */
+/* Campo de busca */
 .atendimentos-busca {
   width: 100%;
   padding: 10px 15px;
@@ -42,18 +37,18 @@
 }
 
 .atendimentos-busca:focus {
-  border-color: #2ecc71;
+  border-color: #3498db;
   outline: none;
 }
 
-/* Lista de cards */
+/* Lista */
 .atendimentos-lista {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
-/* Card individual */
+/* Card */
 .atendimento-card {
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -68,14 +63,15 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Títulos dentro do card */
+/* Nome */
 .atendimento-card h2 {
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 10px;
   color: #2c3e50;
+  text-align: center;
 }
 
-/* Texto dentro do card */
+/* Informações */
 .atendimento-card p {
   margin: 5px 0;
   font-size: 14px;
@@ -84,4 +80,23 @@
 
 .atendimento-card strong {
   color: #34495e;
+}
+/* Botão deletar */
+.button-delete-atendimento {
+  background-color: #afdaf7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.button-delete-atendimento:hover {
+  background-color: cornflowerblue;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
