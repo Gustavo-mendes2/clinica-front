@@ -156,3 +156,19 @@ gap: 20px;
 .paciente-card strong {
   color: #34495e;
 }
+
+.button-delete-paciente{
+   background-color: #afdaf7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  color:#2c3e50;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.button-delete-paciente:hover{
+  background-color: cornflowerblue;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
