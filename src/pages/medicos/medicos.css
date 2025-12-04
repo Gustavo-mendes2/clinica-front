@@ -66,7 +66,7 @@ gap: 20px;
 }
 
 
-/* Grelha responsiva */
+
 .form-row {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -74,7 +74,7 @@ gap: 15px;
 }
 
 
-/* Inputs padrão */
+
 .form-row input,
 .form-row select {
 padding: 10px;
@@ -87,7 +87,7 @@ color: #2c3e50;
 }
 
 
-/* Foco */
+
 .form-row input:focus,
 .form-row select:focus {
 border-color: #afdaf7;
@@ -96,13 +96,13 @@ outline: none;
 }
 
 
-/* Inputs individuais */
+
 .input-endereco {
 grid-column: span 2;
 }
 
 
-/* Botões */
+
 .buttons {
 display: flex;
 justify-content: flex-end;
@@ -110,7 +110,7 @@ gap: 10px;
 }
 
 
-/* Botão cancelar */
+
 .btn-cancelar {
 background: #ccc;
 padding: 10px 20px;
@@ -126,7 +126,7 @@ background: #b1b1b1;
 }
 
 
-/* Botão salvar */
+
 .btn-salvar {
 background: #4CAF50;
 color: white;
