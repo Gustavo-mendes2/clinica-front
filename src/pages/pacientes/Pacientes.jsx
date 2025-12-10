@@ -8,43 +8,41 @@ function Pacientes() {
   const [carregando, setCarregando] = useState(true);
 
   const [mostrarModal, setMostrarModal] = useState(false);
-  
+
   const [medicos, setMedicos] = useState([]);
   const [novoPaciente, setNovoPaciente] = useState({
-  nome: "",
-  cpf: "",
-  email: "",
-  telefone: "",
-  endereco: "",
-  dataNascimento: "",
-  sexo: "",
-  medico: { id: null }
-});
-
+    nome: "",
+    cpf: "",
+    email: "",
+    telefone: "",
+    endereco: "",
+    dataNascimento: "",
+    sexo: "",
+    medico: { id: null },
+  });
 
   useEffect(() => {
-  setCarregando(true);
+    setCarregando(true);
 
-  Promise.all([
-    axios.get("http://localhost:8080/api/pacientes"),
-    axios.get("http://localhost:8080/api/medicos")
-  ])
-    .then(([resPacientes, resMedicos]) => {
-      // remover duplicados de pacientes pelo ID
-      const pacientesUnicos = Array.from(
-        new Map(resPacientes.data.map(p => [p.id, p])).values()
-      );
+    Promise.all([
+      axios.get("http://localhost:8080/api/pacientes"),
+      axios.get("http://localhost:8080/api/medicos"),
+    ])
+      .then(([resPacientes, resMedicos]) => {
+        // remover duplicados de pacientes pelo ID
+        const pacientesUnicos = Array.from(
+          new Map(resPacientes.data.map((p) => [p.id, p])).values()
+        );
 
-      setPacientes(pacientesUnicos);
-      setMedicos(resMedicos.data);
-      setCarregando(false);
-    })
-    .catch((err) => {
-      console.error("Erro ao carregar dados:", err);
-      setCarregando(false);
-    });
-    }, []);
-
+        setPacientes(pacientesUnicos);
+        setMedicos(resMedicos.data);
+        setCarregando(false);
+      })
+      .catch((err) => {
+        console.error("Erro ao carregar dados:", err);
+        setCarregando(false);
+      });
+  }, []);
 
   const filtrados = pacientes.filter(
     (p) =>
@@ -61,7 +59,7 @@ function Pacientes() {
     } catch (err) {
       console.error("Erro ao deletar paciente:", err);
     }
-  } //Função de deletar paciente -- Dps adicionar as outras páginas!
+  }
 
   async function criarPaciente(e) {
     e.preventDefault();
@@ -69,7 +67,10 @@ function Pacientes() {
     console.log("Enviando JSON:", novoPaciente);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/pacientes", novoPaciente);
+      const res = await axios.post(
+        "http://localhost:8080/api/pacientes",
+        novoPaciente
+      );
 
       // adiciona no estado
       setPacientes((prev) => [...prev, res.data]);
@@ -111,118 +112,156 @@ function Pacientes() {
               <div key={p.id} className="paciente-card">
                 <h2>{p.nome}</h2>
 
-                <p><strong>CPF:</strong> {p.cpf || "Não informado"}</p>
-                <p><strong>Email:</strong> {p.email || "Não informado"}</p>
-                <p><strong>Telefone:</strong> {p.telefone || "Não informado"}</p>
-                <button className="button-delete-paciente"
-                onClick={() => deletarPaciente(p.id)}
-                >Deletar</button>
+                <p>
+                  <strong>ID:</strong> {p.id || "Não informado"}
+                </p>
+                <p>
+                  <strong>CPF:</strong> {p.cpf || "Não informado"}
+                </p>
+                <p>
+                  <strong>Email:</strong> {p.email || "Não informado"}
+                </p>
+                <p>
+                  <strong>Telefone:</strong> {p.telefone || "Não informado"}
+                </p>
+                <button
+                  className="button-delete-paciente"
+                  onClick={() => deletarPaciente(p.id)}
+                >
+                  Deletar
+                </button>
               </div>
             ))
           )}
         </div>
       )}
       {mostrarModal && (
-  <div className="modal-overlay">
-    <div className="modal">
-      <h2>Novo Paciente</h2>
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Novo Paciente</h2>
 
-      <form onSubmit={criarPaciente} className="form-paciente">
+            <form onSubmit={criarPaciente} className="form-paciente">
+              <div className="form-row">
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  className="input-nome"
+                  value={novoPaciente.nome}
+                  onChange={(e) =>
+                    setNovoPaciente({ ...novoPaciente, nome: e.target.value })
+                  }
+                  required
+                />
 
-        <div className="form-row">
-          <input
-            type="text"
-            placeholder="Nome"
-            className="input-nome"
-            value={novoPaciente.nome}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, nome: e.target.value })}
-            required
-          />
+                <input
+                  type="text"
+                  placeholder="CPF"
+                  className="input-cpf"
+                  value={novoPaciente.cpf}
+                  onChange={(e) =>
+                    setNovoPaciente({ ...novoPaciente, cpf: e.target.value })
+                  }
+                />
 
-          <input
-            type="text"
-            placeholder="CPF"
-            className="input-cpf"
-            value={novoPaciente.cpf}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, cpf: e.target.value })}
-          />
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  className="input-email"
+                  value={novoPaciente.email}
+                  onChange={(e) =>
+                    setNovoPaciente({ ...novoPaciente, email: e.target.value })
+                  }
+                />
 
-          <input
-            type="email"
-            placeholder="E-mail"
-            className="input-email"
-            value={novoPaciente.email}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, email: e.target.value })}
-          />
+                <input
+                  type="text"
+                  placeholder="Telefone"
+                  className="input-telefone"
+                  value={novoPaciente.telefone}
+                  onChange={(e) =>
+                    setNovoPaciente({
+                      ...novoPaciente,
+                      telefone: e.target.value,
+                    })
+                  }
+                />
+              </div>
 
-          <input
-            type="text"
-            placeholder="Telefone"
-            className="input-telefone"
-            value={novoPaciente.telefone}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, telefone: e.target.value })}
-          />
+              <div className="form-row">
+                <input
+                  type="text"
+                  placeholder="Endereço"
+                  className="input-endereco"
+                  value={novoPaciente.endereco}
+                  onChange={(e) =>
+                    setNovoPaciente({
+                      ...novoPaciente,
+                      endereco: e.target.value,
+                    })
+                  }
+                />
+
+                <input
+                  type="date"
+                  className="input-data"
+                  value={novoPaciente.dataNascimento}
+                  onChange={(e) =>
+                    setNovoPaciente({
+                      ...novoPaciente,
+                      dataNascimento: e.target.value,
+                    })
+                  }
+                />
+
+                <select
+                  className="input-sexo"
+                  value={novoPaciente.sexo}
+                  onChange={(e) =>
+                    setNovoPaciente({ ...novoPaciente, sexo: e.target.value })
+                  }
+                >
+                  <option value="">Selecionar</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Outro">Outro</option>
+                </select>
+
+                <select
+                  className="input-medico"
+                  value={novoPaciente.medico.id || ""}
+                  onChange={(e) =>
+                    setNovoPaciente({
+                      ...novoPaciente,
+                      medico: { id: Number(e.target.value) },
+                    })
+                  }
+                >
+                  <option value="">Selecione um médico</option>
+                  {medicos.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="btn-cancelar"
+                  onClick={() => setMostrarModal(false)}
+                >
+                  Cancelar
+                </button>
+
+                <button type="submit" className="btn-salvar">
+                  Salvar
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-
-        <div className="form-row">
-          <input
-            type="text"
-            placeholder="Endereço"
-            className="input-endereco"
-            value={novoPaciente.endereco}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, endereco: e.target.value })}
-          />
-
-          <input
-            type="date"
-            className="input-data"
-            value={novoPaciente.dataNascimento}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, dataNascimento: e.target.value })}
-          />
-
-          <select
-            className="input-sexo"
-            value={novoPaciente.sexo}
-            onChange={(e) => setNovoPaciente({ ...novoPaciente, sexo: e.target.value })}
-          >
-            <option value="">Selecionar</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Feminino">Feminino</option>
-            <option value="Outro">Outro</option>
-          </select>
-
-          <select
-            className="input-medico"
-            value={novoPaciente.medico.id || ""}
-            onChange={(e) =>
-              setNovoPaciente({
-                ...novoPaciente,
-                medico: { id: Number(e.target.value) }
-              })
-            }
-          >
-            <option value="">Selecione um médico</option>
-            {medicos.map((m) => (
-              <option key={m.id} value={m.id}>{m.nome}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="buttons">
-          <button type="button" className="btn-cancelar" onClick={() => setMostrarModal(false)}>
-            Cancelar
-          </button>
-
-          <button type="submit" className="btn-salvar">
-            Salvar
-          </button>
-        </div>
-
-      </form>
-    </div>
-  </div>
-)}
-
+      )}
     </div>
   );
 }

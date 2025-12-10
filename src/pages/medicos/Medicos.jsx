@@ -1,123 +1,3 @@
-// import "./medicos.css";
-// import { useState } from "react";
-
-// function Medicos() {
-// const [busca, setBusca] = useState("");
-
-// const medicos = [
-// { id: 1, nome: "Dr. Everton uneb", especialidade: "Urologista", crm: "12345" },
-// { id: 2, nome: "Dra. Silas uneb", especialidade: "Dermatologia", crm: "67890" },
-// { id: 3, nome: "Dr. Gustavo uneb", especialidade: "Ginecologista", crm: "11223" }
-// ];
-
-// const filtrados = medicos.filter((m) =>
-// m.nome.toLowerCase().includes(busca.toLowerCase()) ||
-// m.especialidade.toLowerCase().includes(busca.toLowerCase()) ||
-// m.crm.includes(busca)
-// );
-
-// return (
-// <div className="medicos-container">
-// <h1>Médicos</h1>
-// <p>Lista de médicos cadastrados no sistema.</p>
-
-// <input
-// type="text"
-// placeholder="Buscar por nome, CRM ou especialidade..."
-// className="medicos-busca"
-// value={busca}
-// onChange={(e) => setBusca(e.target.value)}
-// />
-
-// <div className="medicos-lista">
-// {filtrados.length === 0 ? (
-// <p>Nenhum médico encontrado.</p>
-// ) : (
-// filtrados.map((m) => (
-// <div key={m.id} className="medico-card">
-// <h2>{m.nome}</h2>
-// <p><strong>Especialidade:</strong> {m.especialidade}</p>
-// <p><strong>CRM:</strong> {m.crm}</p>
-// </div>
-// ))
-// )}
-// </div>
-// </div>
-// );
-// }
-/*
-// export default Medicos;
-
- import "./medicos.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-function Medicos() {
-  const [busca, setBusca] = useState("");
-  const [medicos, setMedicos] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/medicos")
-      .then((res) => {
-        setMedicos(res.data);
-        setCarregando(false);
-      })
-      .catch((err) => {
-        console.error("Erro ao carregar médicos:", err);
-        setCarregando(false);
-      });
-  }, []);
-
-  const filtrados = medicos.filter(
-    (m) =>
-      m.nome.toLowerCase().includes(busca.toLowerCase()) ||
-      m.especialidade.toLowerCase().includes(busca.toLowerCase()) ||
-      String(m.crm).includes(busca)
-  );
-
-  return (
-    <div className="medicos-container">
-      <h1>Médicos</h1>
-      <p>Lista de médicos cadastrados no sistema.</p>
-
-      <input
-        type="text"
-        placeholder="Buscar por nome, CRM ou especialidade..."
-        className="medicos-busca"
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-      />
-
-      {carregando ? (
-        <p>Carregando médicos...</p>
-      ) : (
-        <div className="medicos-lista">
-          {filtrados.length === 0 ? (
-            <p>Nenhum médico encontrado.</p>
-          ) : (
-            filtrados.map((m) => (
-              <div key={m.id} className="medico-card">
-                <h2>{m.nome}</h2>
-                <p>
-                  <strong>Especialidade:</strong> {m.especialidade}
-                </p>
-                <p>
-                  <strong>CRM:</strong> {m.crm}
-                </p>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default Medicos;
-*/
-
 import "./medicos.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -134,17 +14,15 @@ function Medicos() {
     telefone: "",
     crm: "",
     especialidade: "",
-    salario: ""
+    salario: "",
   });
 
-  
   useEffect(() => {
     setCarregando(true);
 
     axios
       .get("http://localhost:8080/api/medicos")
       .then((res) => {
-        
         const medicosUnicos = Array.from(
           new Map(res.data.map((m) => [m.id, m])).values()
         );
@@ -158,7 +36,6 @@ function Medicos() {
       });
   }, []);
 
-  
   const filtrados = medicos.filter(
     (m) =>
       m.nome?.toLowerCase().includes(busca.toLowerCase()) ||
@@ -167,7 +44,6 @@ function Medicos() {
       m.telefone?.toLowerCase().includes(busca.toLowerCase())
   );
 
-  
   async function deletarMedico(id) {
     try {
       await axios.delete(`http://localhost:8080/api/medicos/${id}`);
@@ -177,24 +53,25 @@ function Medicos() {
     }
   }
 
-  
   async function criarMedico(e) {
     e.preventDefault();
 
     console.log("Enviando JSON:", novoMedico);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/medicos", novoMedico);
+      const res = await axios.post(
+        "http://localhost:8080/api/medicos",
+        novoMedico
+      );
 
       setMedicos((prev) => [...prev, res.data]);
 
-      
       setNovoMedico({
         nome: "",
         telefone: "",
         crm: "",
         especialidade: "",
-        salario: ""
+        salario: "",
       });
 
       setMostrarModal(false);
@@ -231,10 +108,22 @@ function Medicos() {
               <div key={m.id} className="paciente-card">
                 <h2>{m.nome}</h2>
 
-                <p><strong>CRM:</strong> {m.crm || "Não informado"}</p>
-                <p><strong>Especialidade:</strong> {m.especialidade || "Não informada"}</p>
-                <p><strong>Telefone:</strong> {m.telefone || "Não informado"}</p>
-                <p><strong>Salário:</strong> R$ {m.salario || "0,00"}</p>
+                <p>
+                  <strong>ID:</strong> {m.id || "Não informado"}
+                </p>
+                <p>
+                  <strong>CRM:</strong> {m.crm || "Não informado"}
+                </p>
+                <p>
+                  <strong>Especialidade:</strong>{" "}
+                  {m.especialidade || "Não informada"}
+                </p>
+                <p>
+                  <strong>Telefone:</strong> {m.telefone || "Não informado"}
+                </p>
+                <p>
+                  <strong>Salário:</strong> R$ {m.salario || "0,00"}
+                </p>
 
                 <button
                   className="button-delete-paciente"
@@ -260,7 +149,9 @@ function Medicos() {
                   type="text"
                   placeholder="Nome"
                   value={novoMedico.nome}
-                  onChange={(e) => setNovoMedico({ ...novoMedico, nome: e.target.value })}
+                  onChange={(e) =>
+                    setNovoMedico({ ...novoMedico, nome: e.target.value })
+                  }
                   required
                 />
 
@@ -268,14 +159,18 @@ function Medicos() {
                   type="text"
                   placeholder="Telefone"
                   value={novoMedico.telefone}
-                  onChange={(e) => setNovoMedico({ ...novoMedico, telefone: e.target.value })}
+                  onChange={(e) =>
+                    setNovoMedico({ ...novoMedico, telefone: e.target.value })
+                  }
                 />
 
                 <input
                   type="text"
                   placeholder="CRM"
                   value={novoMedico.crm}
-                  onChange={(e) => setNovoMedico({ ...novoMedico, crm: e.target.value })}
+                  onChange={(e) =>
+                    setNovoMedico({ ...novoMedico, crm: e.target.value })
+                  }
                   required
                 />
 
@@ -284,7 +179,10 @@ function Medicos() {
                   placeholder="Especialidade"
                   value={novoMedico.especialidade}
                   onChange={(e) =>
-                    setNovoMedico({ ...novoMedico, especialidade: e.target.value })
+                    setNovoMedico({
+                      ...novoMedico,
+                      especialidade: e.target.value,
+                    })
                   }
                 />
 
@@ -293,7 +191,9 @@ function Medicos() {
                   step="0.01"
                   placeholder="Salário"
                   value={novoMedico.salario}
-                  onChange={(e) => setNovoMedico({ ...novoMedico, salario: e.target.value })}
+                  onChange={(e) =>
+                    setNovoMedico({ ...novoMedico, salario: e.target.value })
+                  }
                 />
               </div>
 

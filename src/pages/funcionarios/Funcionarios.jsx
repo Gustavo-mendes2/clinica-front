@@ -14,7 +14,7 @@ function Funcionarios() {
     nome: "",
     cpf: "",
     cargo: "",
-    telefone: ""
+    telefone: "",
   });
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function Funcionarios() {
       .then((res) => {
         // remove duplicados se o backend estiver repetindo
         const unicos = Array.from(
-          new Map(res.data.map(f => [f.id, f])).values()
+          new Map(res.data.map((f) => [f.id, f])).values()
         );
         setFuncionarios(unicos);
         setCarregando(false);
