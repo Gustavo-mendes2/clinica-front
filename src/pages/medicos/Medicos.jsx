@@ -49,7 +49,11 @@ function Medicos() {
       await axios.delete(`http://localhost:8080/api/medicos/${id}`);
       setMedicos((prev) => prev.filter((m) => m.id !== id));
     } catch (err) {
-      console.error("Erro ao deletar médico:", err);
+      if (err.response?.status === 404) {
+         alert("Não é possível excluir este médico porque existem pacientes ou atendimentos associados.");
+     } else {
+         alert("Erro inesperado ao excluir médico.");
+     }
     }
   }
 
