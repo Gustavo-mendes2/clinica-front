@@ -59,7 +59,11 @@ function Pacientes() {
       await axios.delete(`http://localhost:8080/api/pacientes/${id}`);
       setPacientes((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
-      console.error("Erro ao deletar paciente:", err);
+      if (err.response?.status === 404) {
+         alert("Não é possível excluir este paciente porque existem medicos ou atendimentos associados.");
+     } else {
+         alert("Erro inesperado ao excluir médico.");
+     }
     }
   } //Função de deletar paciente -- Dps adicionar as outras páginas!
 

@@ -9,14 +9,15 @@ function Atendimentos() {
 
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  // novo atendimento
-  const [novoAtendimento, setNovoAtendimento] = useState({
+ 
+  const [novoAgendamento, setNovoAgendamento] = useState({
     descricao: "",
     tipo: "",
     preco: "",
-    status: "",
+    dataHora: "",
     medicoId: "",
-    pacienteId: ""
+    pacienteId: "",
+    funcionarioId: ""
   });
 
   useEffect(() => {
@@ -25,7 +26,6 @@ function Atendimentos() {
     axios
       .get("http://localhost:8080/api/atendimentos")
       .then((res) => {
-        // remove duplicados caso haja repetição no backend
         const unicos = Array.from(new Map(res.data.map(a => [a.id, a])).values());
         setAtendimentos(unicos);
         setCarregando(false);
@@ -36,7 +36,7 @@ function Atendimentos() {
       });
   }, []);
 
-  // filtro
+
   const filtrados = atendimentos.filter((a) => {
     const b = busca.toLowerCase();
     return (
@@ -48,36 +48,51 @@ function Atendimentos() {
     );
   });
 
-  // deletar
+
   async function deletarAtendimento(id) {
     try {
       await axios.delete(`http://localhost:8080/api/atendimentos/${id}`);
       setAtendimentos((prev) => prev.filter((a) => a.id !== id));
     } catch (err) {
-      console.error("Erro ao deletar atendimento:", err);
+       if (err.response?.status === 404) {
+         alert("Não é possível excluir este médico porque existem pacientes ou atendimentos associados.");
+     } else {
+         alert("Erro inesperado ao excluir médico.");
+     }
     }
   }
 
-  // criar
+ 
   async function criarAtendimento(e) {
     e.preventDefault();
 
     try {
+    
       const res = await axios.post(
-        "http://localhost:8080/api/atendimentos",
-        novoAtendimento
+        "http://localhost:8080/api/agendamentos",
+        {
+          medicoId: parseInt(novoAgendamento.medicoId),
+          pacienteId: parseInt(novoAgendamento.pacienteId),
+          funcionarioId: parseInt(novoAgendamento.funcionarioId),
+          descricao: novoAgendamento.descricao,
+          tipo: novoAgendamento.tipo,
+          preco: parseFloat(novoAgendamento.preco),
+          dataHora: novoAgendamento.dataHora
+        }
       );
 
-      setAtendimentos((prev) => [...prev, res.data]);
+    
+      setAtendimentos((prev) => [...prev, res.data.atendimento]);
 
-      // limpar e fechar modal
-      setNovoAtendimento({
+ 
+      setNovoAgendamento({
         descricao: "",
         tipo: "",
         preco: "",
-        status: "",
+        dataHora: "",
         medicoId: "",
-        pacienteId: ""
+        pacienteId: "",
+        funcionarioId: ""
       });
 
       setMostrarModal(false);
@@ -144,9 +159,9 @@ function Atendimentos() {
                 <input
                   type="text"
                   placeholder="Descrição"
-                  value={novoAtendimento.descricao}
+                  value={novoAgendamento.descricao}
                   onChange={(e) =>
-                    setNovoAtendimento({ ...novoAtendimento, descricao: e.target.value })
+                    setNovoAgendamento({ ...novoAgendamento, descricao: e.target.value })
                   }
                   required
                 />
@@ -154,46 +169,60 @@ function Atendimentos() {
                 <input
                   type="text"
                   placeholder="Tipo"
-                  value={novoAtendimento.tipo}
+                  value={novoAgendamento.tipo}
                   onChange={(e) =>
-                    setNovoAtendimento({ ...novoAtendimento, tipo: e.target.value })
+                    setNovoAgendamento({ ...novoAgendamento, tipo: e.target.value })
                   }
                 />
 
                 <input
                   type="number"
                   placeholder="Preço"
-                  value={novoAtendimento.preco}
+                  value={novoAgendamento.preco}
                   onChange={(e) =>
-                    setNovoAtendimento({ ...novoAtendimento, preco: e.target.value })
+                    setNovoAgendamento({ ...novoAgendamento, preco: e.target.value })
                   }
                 />
 
+                {}
                 <input
-                  type="text"
-                  placeholder="Status"
-                  value={novoAtendimento.status}
+                  type="datetime-local"
+                  value={novoAgendamento.dataHora}
                   onChange={(e) =>
-                    setNovoAtendimento({ ...novoAtendimento, status: e.target.value })
+                    setNovoAgendamento({ ...novoAgendamento, dataHora: e.target.value })
                   }
+                  required
                 />
 
                 <input
                   type="text"
                   placeholder="ID do Médico"
-                  value={novoAtendimento.medicoId}
+                  value={novoAgendamento.medicoId}
                   onChange={(e) =>
-                    setNovoAtendimento({ ...novoAtendimento, medicoId: e.target.value })
+                    setNovoAgendamento({ ...novoAgendamento, medicoId: e.target.value })
                   }
+                  required
                 />
 
                 <input
                   type="text"
                   placeholder="ID do Paciente"
-                  value={novoAtendimento.pacienteId}
+                  value={novoAgendamento.pacienteId}
                   onChange={(e) =>
-                    setNovoAtendimento({ ...novoAtendimento, pacienteId: e.target.value })
+                    setNovoAgendamento({ ...novoAgendamento, pacienteId: e.target.value })
                   }
+                  required
+                />
+
+                {}
+                <input
+                  type="text"
+                  placeholder="ID do Funcionário"
+                  value={novoAgendamento.funcionarioId}
+                  onChange={(e) =>
+                    setNovoAgendamento({ ...novoAgendamento, funcionarioId: e.target.value })
+                  }
+                  required
                 />
 
               </div>
